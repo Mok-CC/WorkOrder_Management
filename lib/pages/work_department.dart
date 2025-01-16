@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:work_order/pages/create_work_order/create_work_order.dart';
 import 'package:work_order/utils/app_colors.dart';
 import 'package:work_order/widgets/bottomsheet.dart';
 import 'package:work_order/widgets/breadcrumb.dart';
@@ -44,8 +45,8 @@ class _WorkDepartmentPageState extends State<WorkDepartmentPage> {
               creationTime: creationTime,
               workOrderNumber: workOrderNumber,
               handler: handler,
-              onEdit: () => onEdit,
-              onDelete: () => onDelete);
+              onEdit: onEdit);
+          // onDelete: onDelete);
         });
   }
 
@@ -343,17 +344,10 @@ class _WorkDepartmentPageState extends State<WorkDepartmentPage> {
                     icon: Icon(Icons.more_horiz),
                     onPressed: () {
                       // 处理更多操作
-                      _showBottomSheet(
-                          'File test',
-                          true,
-                          '2021-10-10 10:10:10',
-                          'WO-0001',
-                          'John Doe',
-                          // 编辑工单
-                          Navigator.pushNamed(context, '/create_work_order'),
-                          () {
-                        // 删除工单
-                      });
+                      _showBottomSheet('File test', true, '2021-10-10 10:10:10',
+                          'WO-0001', 'John Doe', () {
+                        // 编辑工单
+                      }, () {});
                     },
                   ),
                 ),

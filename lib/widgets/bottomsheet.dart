@@ -7,7 +7,7 @@ class BottomSheetWidget extends StatefulWidget {
   final String? handler;
   final bool isFolder;
   final void Function() onEdit;
-  final void Function() onDelete;
+  // final void Function() onDelete;
 
   const BottomSheetWidget({
     super.key,
@@ -17,7 +17,7 @@ class BottomSheetWidget extends StatefulWidget {
     this.handler,
     required this.isFolder,
     required this.onEdit,
-    required this.onDelete,
+    // required this.onDelete,
   });
 
   @override
@@ -153,7 +153,9 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                     children: [
                       IconButton(
                         icon: Icon(Icons.edit),
-                        onPressed: () {},
+                        onPressed: () {
+                          widget.onEdit();
+                        },
                       ),
                       Text(
                         'Edit',

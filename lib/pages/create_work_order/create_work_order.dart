@@ -31,13 +31,15 @@ class _CreateWorkOrderPageState extends State<CreateWorkOrderPage> {
           ),
         ),
         leading: IconButton(
-          icon: Icon(Icons.close, color: Colors.white),
-          onPressed: () => {},
+          icon: Icon(Icons.keyboard_backspace, color: Colors.white),
+          onPressed: () => {
+            Navigator.pop(context),
+          },
         ),
         actions: [
           IconButton(
             icon: Icon(
-              Icons.more_horiz,
+              Icons.more_vert,
               color: Colors.white,
             ),
             onPressed: () => {},
@@ -244,6 +246,10 @@ class _CreateWorkOrderPageState extends State<CreateWorkOrderPage> {
           Column(
             children: _uploadedFiles.map((file) {
               return ListTile(
+                leading: Icon(
+                  Icons.picture_as_pdf_rounded,
+                  color: Colors.deepOrangeAccent,
+                ),
                 title: Text(file),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,

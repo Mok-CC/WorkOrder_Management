@@ -22,12 +22,12 @@ class WorkOrderManagement extends StatelessWidget {
           ),
         ),
         leading: (IconButton(
-          icon: Icon(Icons.close, color: Colors.white),
+          icon: Icon(Icons.keyboard_backspace, color: Colors.white),
           onPressed: () => {},
         )),
         actions: [
           IconButton(
-            icon: Icon(Icons.more_horiz, color: Colors.white),
+            icon: Icon(Icons.more_vert, color: Colors.white),
             onPressed: () => {},
           ),
         ],
