@@ -47,6 +47,182 @@ class _WorkDepartmentPageState extends State<WorkDepartmentPage> {
         });
   }
 
+  // 创建文件夹弹框
+  void _showCreateFolderDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          title: Container(
+            color: AppColors.tablebackgroundColor,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Create Folder',
+                  style: TextStyle(fontSize: 18, color: AppColors.articleColor),
+                ),
+                IconButton(
+                    onPressed: () {
+                      Navigator.pop(context); // 关闭弹框
+                    },
+                    icon: Icon(Icons.close))
+              ],
+            ),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                children: [
+                  Text(
+                    '*',
+                    style: TextStyle(fontSize: 16, color: Colors.red),
+                  ),
+                  Text(
+                    'Folder Name',
+                    style:
+                        TextStyle(fontSize: 16, color: AppColors.articleColor),
+                    textAlign: TextAlign.start,
+                  ),
+                ],
+              ),
+              DropdownButtonFormField<String>(
+                decoration: InputDecoration(
+                  hintText: "Please select",
+                  border: OutlineInputBorder(),
+                ),
+                items: ['John', 'Mike', 'Amy']
+                    .map((name) => DropdownMenuItem(
+                          value: name,
+                          child: Text(name),
+                        ))
+                    .toList(),
+                onChanged: (value) {
+                  // 处理名字选择
+                },
+              ),
+              SizedBox(height: 24),
+              Row(
+                children: [
+                  Text(
+                    '*',
+                    style: TextStyle(fontSize: 16, color: Colors.red),
+                  ),
+                  Text(
+                    'Applicable Roles ',
+                    style:
+                        TextStyle(fontSize: 16, color: AppColors.articleColor),
+                    // textAlign: TextAlign.start,
+                  ),
+                  Tooltip(
+                    message:
+                        'Once associated, users without folder permissions can view and follow up on this order in the [Shared orders] list. Additionally, any modifications to the ticket will trigger notifications (including WeCom) to the users specified in this field.',
+                    height: 162,
+                    triggerMode: TooltipTriggerMode.tap,
+                    padding: EdgeInsets.all(0),
+                    preferBelow: false,
+                    child: Icon(Icons.help_outline, size: 15),
+                  ),
+                ],
+              ),
+              DropdownButtonFormField<String>(
+                decoration: InputDecoration(
+                  hintText: "Please select",
+                  border: OutlineInputBorder(),
+                ),
+                items: ['Role 1', 'Role 2', 'Role 3']
+                    .map((role) => DropdownMenuItem(
+                          value: role,
+                          child: Text(role),
+                        ))
+                    .toList(),
+                onChanged: (value) {
+                  // 处理角色选择
+                },
+              ),
+              SizedBox(height: 24),
+              Row(
+                children: [
+                  Text(
+                    '*',
+                    style: TextStyle(fontSize: 16, color: Colors.red),
+                  ),
+                  Text(
+                    'Applicable Users ',
+                    style:
+                        TextStyle(fontSize: 16, color: AppColors.articleColor),
+                    // textAlign: TextAlign.start,
+                  ),
+                  Tooltip(
+                    message:
+                        'Once associated, users without folder permissions can view and follow up on this order in the [Shared orders] list. Additionally, any modifications to the ticket will trigger notifications (including WeCom) to the users specified in this field.',
+                    height: 162,
+                    triggerMode: TooltipTriggerMode.tap,
+                    padding: EdgeInsets.all(0),
+                    preferBelow: false,
+                    child: Icon(Icons.help_outline, size: 15),
+                  ),
+                ],
+              ),
+              DropdownButtonFormField<String>(
+                decoration: InputDecoration(
+                  hintText: "Please select",
+                  border: OutlineInputBorder(),
+                ),
+                items: ['User 1', 'User 2', 'User 3']
+                    .map((user) => DropdownMenuItem(
+                          value: user,
+                          child: Text(user),
+                        ))
+                    .toList(),
+                onChanged: (value) {
+                  // 处理用户选择
+                },
+              ),
+            ],
+          ),
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              spacing: 16,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context); // 关闭弹框
+                  },
+                  style: TextButton.styleFrom(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 13),
+                      backgroundColor: AppColors.backgroundColor,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.zero)),
+                  child: Text('Cancel',
+                      style: TextStyle(color: Colors.black, fontSize: 17)),
+                ),
+                TextButton(
+                  onPressed: () {
+                    // 处理提交逻辑
+                    Navigator.pop(context); // 关闭弹框
+                  },
+                  style: TextButton.styleFrom(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 13),
+                      backgroundColor: AppColors.primaryColor,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.zero)),
+                  child: Text('Submit',
+                      style: TextStyle(color: Colors.white, fontSize: 17)),
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   void dispose() {
     popoverController.dispose();
@@ -109,6 +285,9 @@ class _WorkDepartmentPageState extends State<WorkDepartmentPage> {
                             style: TextStyle(
                                 fontSize: 16, color: AppColors.articleColor),
                           ),
+                          onTap: () {
+                            _showCreateFolderDialog(context);
+                          },
                         ),
                         PopupMenuItem<String>(
                           value: 'Create work order',
@@ -146,10 +325,15 @@ class _WorkDepartmentPageState extends State<WorkDepartmentPage> {
                     icon: Icon(Icons.more_horiz),
                     onPressed: () {
                       // 处理更多操作
-                      _showBottomSheet('File test', true, '2021-10-10 10:10:10',
-                          'WO-0001', 'John Doe', () {
-                        // 编辑工单
-                      }, () {
+                      _showBottomSheet(
+                          'File test',
+                          true,
+                          '2021-10-10 10:10:10',
+                          'WO-0001',
+                          'John Doe',
+                          // 编辑工单
+                          Navigator.pushNamed(context, '/create_work_order'),
+                          () {
                         // 删除工单
                       });
                     },
@@ -202,6 +386,8 @@ class _WorkDepartmentPageState extends State<WorkDepartmentPage> {
                                     'handler',
                                     () {
                                       // 编辑工单
+                                      Navigator.pushNamed(
+                                          context, '/create_work_order');
                                     },
                                     () {
                                       // 删除工单
@@ -263,52 +449,6 @@ class _WorkDepartmentPageState extends State<WorkDepartmentPage> {
               ),
             )
           : null, // 没有选中项时不显示弹框
-    );
-  }
-}
-
-class PopoverContent extends StatelessWidget {
-  const PopoverContent({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        ListTile(
-          title: Text(
-            ' Operation records',
-            style: TextStyle(fontSize: 14),
-          ),
-          onTap: () {
-            Navigator.pop(context); // 关闭气泡
-            print('Option 1 clicked');
-          },
-        ),
-        Divider(height: 1, thickness: 1, color: Colors.grey),
-        ListTile(
-          title: Text(
-            'Create folder',
-            style: TextStyle(fontSize: 14),
-          ),
-          onTap: () {
-            Navigator.pop(context); // 关闭气泡
-            print('Option 2 clicked');
-          },
-        ),
-        Divider(height: 1, thickness: 1, color: Colors.grey),
-        ListTile(
-          title: Text(
-            'Create work order',
-            style: TextStyle(fontSize: 14),
-          ),
-          onTap: () {
-            Navigator.pop(context); // 关闭气泡
-            print('Option 3 clicked');
-          },
-        ),
-        Divider(height: 1, thickness: 1, color: Colors.grey),
-      ],
     );
   }
 }

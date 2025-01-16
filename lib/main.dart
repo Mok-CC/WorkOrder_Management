@@ -23,8 +23,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.light(),
         useMaterial3: true,
       ),
-      home: WorkOrderManagement(),
       routes: {
+        '/': (context) => WorkOrderManagement(),
         '/operation_records': (context) => OperationRecordsPage(),
         '/create_work_order': (context) => CreateWorkOrderPage(),
       },
