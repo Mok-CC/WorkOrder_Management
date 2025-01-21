@@ -14,7 +14,6 @@ class WorkDepartmentPage extends StatefulWidget {
 
 class _WorkDepartmentPageState extends State<WorkDepartmentPage> {
   final List<bool> _checkboxValues = List.generate(10, (index) => false);
-  final popoverController = ShadPopoverController();
   bool _isAnyChecked = false; // 是否有选中项
   int _selectedCount = 0; // 选中项数量
 
@@ -242,9 +241,125 @@ class _WorkDepartmentPageState extends State<WorkDepartmentPage> {
     );
   }
 
+  // 移动工单弹框
+  void _showMoveDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          child: Column(
+            mainAxisSize: MainAxisSize.min, // 确保对话框只占用必要的空间
+            children: [
+              // 标题区域
+              Container(
+                color: AppColors.tablebackgroundColor,
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Move work order',
+                      style: TextStyle(
+                          fontSize: 18, color: AppColors.articleColor),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pop(context); // 关闭弹框
+                      },
+                      icon: Icon(Icons.close),
+                    ),
+                  ],
+                ),
+              ),
+              // 内容区域
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          '*',
+                          style: TextStyle(fontSize: 16, color: Colors.red),
+                        ),
+                        Text(
+                          'Move to',
+                          style: TextStyle(
+                              fontSize: 16, color: AppColors.articleColor),
+                        ),
+                      ],
+                    ),
+                    DropdownButtonFormField<String>(
+                      decoration: InputDecoration(
+                        hintText: "Please select",
+                        border: OutlineInputBorder(),
+                      ),
+                      items: ['Folder 1', 'Folder 2', 'Folder 3']
+                          .map((name) => DropdownMenuItem(
+                                value: name,
+                                child: Text(name),
+                              ))
+                          .toList(),
+                      onChanged: (value) {
+                        // 处理名字选择
+                      },
+                    ),
+                    SizedBox(height: 24),
+
+                    // 操作按钮区域
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      spacing: 16,
+                      children: [
+                        Expanded(
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.pop(context); // 关闭弹框
+                            },
+                            style: TextButton.styleFrom(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 40, vertical: 25),
+                                backgroundColor: AppColors.backgroundColor,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.zero)),
+                            child: Text('Cancel',
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 17)),
+                          ),
+                        ),
+                        Expanded(
+                          child: TextButton(
+                            onPressed: () {
+                              // 处理提交逻辑
+                              Navigator.pop(context); // 关闭弹框
+                            },
+                            style: TextButton.styleFrom(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 40, vertical: 25),
+                                backgroundColor: AppColors.primaryColor,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.zero)),
+                            child: Text('Submit',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 17)),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   void dispose() {
-    popoverController.dispose();
     super.dispose();
   }
 
@@ -441,6 +556,7 @@ class _WorkDepartmentPageState extends State<WorkDepartmentPage> {
                   ElevatedButton(
                     onPressed: () {
                       // 处理按钮点击事件
+                      _showMoveDialog(context);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue, // 蓝色背景
