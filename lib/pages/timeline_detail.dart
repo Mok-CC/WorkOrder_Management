@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// 时间线详情页
 class TimelineWithDetails extends StatelessWidget {
   final List<Map<String, dynamic>> steps = [
     {

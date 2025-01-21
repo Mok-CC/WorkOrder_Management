@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:work_order/widgets/upload_file.dart';
-
 import '../../utils/app_colors.dart';
 
+// 创建工单页面
 class CreateWorkOrderPage extends StatefulWidget {
   const CreateWorkOrderPage({super.key});
 
@@ -81,7 +81,6 @@ class _CreateWorkOrderPageState extends State<CreateWorkOrderPage> {
                 SizedBox(
                   height: 56,
                 )
-                // _buildAttachmentsSection(),
               ],
             ),
           ),
