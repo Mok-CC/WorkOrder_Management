@@ -514,13 +514,22 @@ class _WorkDepartmentPageState extends State<WorkDepartmentPage> {
                                     false,
                                     'creationTime',
                                     'workOrderNumber',
-                                    'handler',
+                                    'Mok1',
                                     () {
                                       // 编辑工单
                                       Navigator.pushNamed(
                                           context, '/create_work_order',
                                           arguments: {
-                                            'title': 'Create Work Order'
+                                            'title': 'Create Work Order',
+                                            'isEdit': true,
+                                            'workOrderData': {
+                                              'name':
+                                                  'Thermo Fisher ${index + 1}',
+                                              'creationTime': 'creationTime',
+                                              'workOrderNumber':
+                                                  'workOrderNumber',
+                                              'handler': 'Mok1',
+                                            }
                                           });
                                     },
                                     () {

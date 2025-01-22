@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:work_order/pages/timeline_detail.dart';
 import 'package:work_order/pages/work_order.dart';
 
@@ -7,6 +8,7 @@ import 'pages/operation_records.dart';
 import 'pages/work_detail.dart';
 
 void main() {
+  debugPaintSizeEnabled = false;
   runApp(const MyApp());
 }
 

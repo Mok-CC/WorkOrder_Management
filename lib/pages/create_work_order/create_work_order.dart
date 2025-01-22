@@ -23,10 +23,55 @@ class _CreateWorkOrderPageState extends State<CreateWorkOrderPage> {
   final List<String> _uploadedFiles = [];
   final int _maxVisibleChips = 2; // 最多显示的 Chip 数量
 
+  late Map<String, dynamic> _workOrderData;
+  late String? _selectedTitle;
+  late String? _selectedHandle;
+  late String? _selectedApplicableRole;
+  late String? _selectedApplicationUser;
+  late String? _description;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    // 在这里获取路由参数
+    final args =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
+    final isEdit = args?['isEdit'] ?? false;
+
+    if (args != null && isEdit == true) {
+      _workOrderData = args['workOrderData'];
+      // 初始化表单数据（仅设置存在的字段）
+      _selectedTitle = _workOrderData['name']; // 如果存在则赋值，否则为 null
+      _selectedHandle = _workOrderData['handler']; // 如果存在则赋值，否则为 null
+      _selectedApplicableRole =
+          _workOrderData['applicableRole']; // 如果存在则赋值，否则为 null
+      _selectedApplicationUser =
+          _workOrderData['applicationUser']; // 如果存在则赋值，否则为 null
+      _description = _workOrderData['description']; // 如果存在则赋值，否则为 null
+      _selectedRoles
+          .addAll(_workOrderData['selectedRoles'] ?? []); // 如果存在则赋值，否则为空列表
+      _uploadedFiles
+          .addAll(_workOrderData['uploadedFiles'] ?? []); // 如果存在则赋值，否则为空列表
+    } else {
+      _workOrderData = {};
+      _selectedTitle = null;
+      _selectedHandle = null;
+      _selectedApplicableRole = null;
+      _selectedApplicationUser = null;
+      _description = null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final args =
-        ModalRoute.of(context)!.settings.arguments as Map<String, String>?;
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
     final title = args?['title'] ?? 'Create Work Order';
 
     return Scaffold(
@@ -71,27 +116,35 @@ class _CreateWorkOrderPageState extends State<CreateWorkOrderPage> {
       bottomNavigationBar: BottomAppBar(
         color: Colors.transparent,
         elevation: 0,
-        child: Container(
-          padding: EdgeInsets.symmetric(vertical: 16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: TextButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    // 保存表单数据
+                    _workOrderData['title'] = _selectedTitle;
+                    _workOrderData['handle'] = _selectedHandle;
+                    _workOrderData['applicableRole'] = _selectedApplicableRole;
+                    _workOrderData['applicationUser'] =
+                        _selectedApplicationUser;
+                    _workOrderData['description'] = _description;
+                    _workOrderData['selectedRoles'] = _selectedRoles;
+                    _workOrderData['uploadedFiles'] = _uploadedFiles;
+
+                    print('Work Order Data: $_workOrderData');
+                  }
+                },
+                style: TextButton.styleFrom(
                     backgroundColor: AppColors.primaryColor,
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(0))),
-                  ),
-                  child: Text(
-                    'Confirm',
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                  ),
-                  onPressed: () {},
-                ),
-              )
-            ],
-          ),
+                        borderRadius: BorderRadius.circular(6))),
+                child: Text('Confirm',
+                    style: TextStyle(color: Colors.white, fontSize: 18)),
+              ),
+            )
+          ],
         ),
       ),
     );
@@ -99,39 +152,67 @@ class _CreateWorkOrderPageState extends State<CreateWorkOrderPage> {
 
   Widget _buildFormSection() {
     return Container(
-      color: Colors.white,
+      margin: EdgeInsets.fromLTRB(16, 16, 16, 0),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(6))),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Work Order Title',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          Row(
+            children: [
+              Text(
+                '*',
+                style: TextStyle(color: Colors.red, fontSize: 16),
+              ),
+              Text('Work Order Title',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            ],
+          ),
           DropdownButtonFormField<String>(
-            // 选择工单标题
-            items: ['Title 1', 'Title 2', 'Title 3'].map((String value) {
+            value: _selectedTitle, // 设置默认值
+            items: ['Title 1', 'Title 2', 'Title 3', 'Thermo Fisher 1']
+                .map((String value) {
               return DropdownMenuItem<String>(
                 value: value,
                 child: Text(value),
               );
             }).toList(),
-            onChanged: (value) {},
+            onChanged: (value) {
+              setState(() {
+                _selectedTitle = value;
+              });
+            },
             decoration: InputDecoration(
               hintText: 'Select Work Order Title',
               border: OutlineInputBorder(),
             ),
           ),
           SizedBox(height: 16),
-          Text('Handle',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          Row(
+            children: [
+              Text(
+                '*',
+                style: TextStyle(color: Colors.red, fontSize: 16),
+              ),
+              Text('Handle',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            ],
+          ),
           DropdownButtonFormField<String>(
-            // 选择处理人
-            items: ['Handle 1', 'Handle 2', 'Handle 3'].map((String value) {
+            value: _selectedHandle, // 设置默认值
+            items: ['Mok1', 'Mok2', 'Mok3'].map((String value) {
               return DropdownMenuItem<String>(
                 value: value,
                 child: Text(value),
               );
             }).toList(),
-            onChanged: (value) {},
+            onChanged: (value) {
+              setState(() {
+                _selectedHandle = value;
+              });
+            },
             decoration: InputDecoration(
               hintText: 'Select Handle',
               border: OutlineInputBorder(),
@@ -157,6 +238,7 @@ class _CreateWorkOrderPageState extends State<CreateWorkOrderPage> {
           ),
           // 自定义下拉选择框
           DropdownButtonFormField<String>(
+            value: _selectedApplicableRole, // 设置默认值
             items: _applicableRoles.map((String value) {
               return DropdownMenuItem<String>(
                 value: value,
@@ -167,6 +249,7 @@ class _CreateWorkOrderPageState extends State<CreateWorkOrderPage> {
             onChanged: (value) {
               if (value != null && !_selectedRoles.contains(value)) {
                 setState(() {
+                  _selectedApplicableRole = value;
                   _selectedRoles.add(value);
                 });
               }
@@ -218,14 +301,18 @@ class _CreateWorkOrderPageState extends State<CreateWorkOrderPage> {
             ],
           ),
           DropdownButtonFormField<String>(
-            // 选择适用用户
+            value: _selectedApplicationUser, // 设置默认值
             items: ['User 1', 'User 2', 'User 3'].map((String value) {
               return DropdownMenuItem<String>(
                 value: value,
                 child: Text(value),
               );
             }).toList(),
-            onChanged: (value) {},
+            onChanged: (value) {
+              setState(() {
+                _selectedApplicationUser = value;
+              });
+            },
             decoration: InputDecoration(
               hintText: 'Select Applicable Users',
               border: OutlineInputBorder(),
@@ -235,7 +322,13 @@ class _CreateWorkOrderPageState extends State<CreateWorkOrderPage> {
           Text('Description',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
           TextFormField(
+            initialValue: _description, // 设置默认值
             maxLines: 5,
+            onChanged: (value) {
+              setState(() {
+                _description = value;
+              });
+            },
             decoration: InputDecoration(
               hintText: 'Enter Description',
               border: OutlineInputBorder(),

@@ -18,8 +18,11 @@ class UploadFile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.symmetric(horizontal: 16),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-      color: Colors.white,
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(6))),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
