@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:jiffy/jiffy.dart';
 
 // 时间线详情页
 class TimelineWithDetails extends StatelessWidget {
   final List<Map<String, dynamic>> steps = [
     {
-      "stepTitle": "2024-08-12 WED",
-      "followUpPerson": "Jerry",
+      "stepTitle": "2024-08-12",
+      "followUpPerson": "Mary",
       "followUpDate": "2024-06-24",
       "details": {
         "recordNumber": "RCyyyymmdd00000",
@@ -15,11 +16,21 @@ class TimelineWithDetails extends StatelessWidget {
       }
     },
     {
-      "stepTitle": "2024-08-11 TUE",
+      "stepTitle": "2024-08-11",
       "followUpPerson": "Jerry",
       "followUpDate": "2024-06-24",
       "details": {
-        "recordNumber": "RCyyyymmdd00000",
+        "recordNumber": "RCyyyymmdd00001",
+        "description": "Project Documentation - Meeting Minutes",
+        "additionalInfo": "Follow-Up Content"
+      }
+    },
+    {
+      "stepTitle": "2024-08-10",
+      "followUpPerson": "Mok",
+      "followUpDate": "2024-06-24",
+      "details": {
+        "recordNumber": "RCyyyymmdd00002",
         "description": "Project Documentation - Meeting Minutes",
         "additionalInfo": "Follow-Up Content"
       }
@@ -107,7 +118,7 @@ class TimelineWithDetails extends StatelessWidget {
                           Row(
                             children: [
                               Text(
-                                step['stepTitle'],
+                                '${step['stepTitle']} ${Jiffy.parse(step['stepTitle']).format(pattern: 'EEE')}',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                               Spacer(),

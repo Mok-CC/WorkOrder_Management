@@ -172,8 +172,18 @@ class _CreateWorkOrderPageState extends State<CreateWorkOrderPage> {
           ),
           DropdownButtonFormField<String>(
             value: _selectedTitle, // 设置默认值
-            items: ['Title 1', 'Title 2', 'Title 3', 'Thermo Fisher 1']
-                .map((String value) {
+            items: [
+              'Thermo Fisher 1',
+              'Thermo Fisher 2',
+              'Thermo Fisher 3',
+              'Thermo Fisher 4',
+              'Thermo Fisher 5',
+              'Thermo Fisher 6',
+              'Thermo Fisher 7',
+              'Thermo Fisher 8',
+              'Thermo Fisher 9',
+              'Thermo Fisher 10'
+            ].map((String value) {
               return DropdownMenuItem<String>(
                 value: value,
                 child: Text(value),

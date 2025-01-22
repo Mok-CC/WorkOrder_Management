@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       routes: {
-        '/': (context) => WorkOrderManagement(),
+        '/': (context) => WorkDetailPage(),
         '/operation_records': (context) => OperationRecordsPage(),
         '/create_work_order': (context) => CreateWorkOrderPage(),
       },
