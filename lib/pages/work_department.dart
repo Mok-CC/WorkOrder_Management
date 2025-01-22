@@ -409,7 +409,10 @@ class _WorkDepartmentPageState extends State<WorkDepartmentPage> {
                           ),
                           // 路由跳转
                           onTap: () {
-                            Navigator.pushNamed(context, '/operation_records');
+                            Navigator.pushNamed(context, '/operation_records',
+                                arguments: {
+                                  'title': 'Operation Records',
+                                });
                           },
                         ),
                         PopupMenuItem<String>(
@@ -431,7 +434,8 @@ class _WorkDepartmentPageState extends State<WorkDepartmentPage> {
                                 fontSize: 16, color: AppColors.articleColor),
                           ),
                           onTap: () {
-                            Navigator.pushNamed(context, '/create_work_order');
+                            Navigator.pushNamed(context, '/create_work_order',
+                                arguments: {'title': 'Create Work Order'});
                           },
                         ),
                       ],
@@ -514,7 +518,10 @@ class _WorkDepartmentPageState extends State<WorkDepartmentPage> {
                                     () {
                                       // 编辑工单
                                       Navigator.pushNamed(
-                                          context, '/create_work_order');
+                                          context, '/create_work_order',
+                                          arguments: {
+                                            'title': 'Create Work Order'
+                                          });
                                     },
                                     () {
                                       // 删除工单

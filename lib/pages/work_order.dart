@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:work_order/pages/work_navbar.dart';
 import 'package:work_order/pages/work_select.dart';
-import 'package:work_order/utils/app_colors.dart';
+import 'package:work_order/widgets/custom_appbar.dart';
 
 import 'work_department.dart';
 
@@ -12,26 +12,7 @@ class WorkOrderManagement extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.appbarColor,
-        title: Center(
-          child: Text(
-            'Work Order Management',
-            style: TextStyle(
-                fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
-          ),
-        ),
-        leading: (IconButton(
-          icon: Icon(Icons.keyboard_backspace, color: Colors.white),
-          onPressed: () => {},
-        )),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.more_vert, color: Colors.white),
-            onPressed: () => {},
-          ),
-        ],
-      ),
+      appBar: CustomAppBar(title: 'Work Order Management'),
       drawer: Drawer(
         width: 256,
         clipBehavior: Clip.antiAlias,

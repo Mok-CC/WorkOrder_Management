@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pluto_grid/pluto_grid.dart';
+import 'package:work_order/widgets/custom_appbar.dart';
 
 // 操作记录表格页面
 class OperationRecordsPage extends StatefulWidget {
@@ -114,27 +115,33 @@ class _OperationRecordsPageState extends State<OperationRecordsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(15),
-      child: PlutoGrid(
-        columns: columns,
-        rows: rows,
-        onLoaded: (PlutoGridOnLoadedEvent event) {
-          stateManager = event.stateManager;
-        },
-        onChanged: (PlutoGridOnChangedEvent event) {
-          print(event.row.cells[event.column.field]?.value);
-        },
-        configuration: PlutoGridConfiguration(
-          style: PlutoGridStyleConfig(
-            enableCellBorderVertical: false, // 禁用单元格边框
-            gridBorderColor: Colors.white,
-          ), // 网格线颜色,
-          columnSize: PlutoGridColumnSizeConfig(
-            autoSizeMode: PlutoAutoSizeMode.scale, // 自动调整列宽
+    final args =
+        ModalRoute.of(context)!.settings.arguments as Map<String, String>?;
+    final title = args?['title'] ?? 'Operation Records';
+
+    return Scaffold(
+        appBar: CustomAppBar(title: title),
+        body: Container(
+          padding: EdgeInsets.all(15),
+          child: PlutoGrid(
+            columns: columns,
+            rows: rows,
+            onLoaded: (PlutoGridOnLoadedEvent event) {
+              stateManager = event.stateManager;
+            },
+            onChanged: (PlutoGridOnChangedEvent event) {
+              print(event.row.cells[event.column.field]?.value);
+            },
+            configuration: PlutoGridConfiguration(
+              style: PlutoGridStyleConfig(
+                enableCellBorderVertical: false, // 禁用单元格边框
+                gridBorderColor: Colors.white,
+              ), // 网格线颜色,
+              columnSize: PlutoGridColumnSizeConfig(
+                autoSizeMode: PlutoAutoSizeMode.scale, // 自动调整列宽
+              ),
+            ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }

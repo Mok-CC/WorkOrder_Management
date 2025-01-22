@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:work_order/utils/app_colors.dart';
 
 class BottomSheetWidget extends StatefulWidget {
   final String title;
@@ -111,11 +112,13 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
             crossAxisAlignment: CrossAxisAlignment.start, // 左对齐
             children: [
               Padding(
-                padding: EdgeInsets.only(
-                    top: 24, left: 16, bottom: 24), // 确保标题距离上面24dp
+                padding: EdgeInsets.only(top: 24, left: 16), // 确保标题距离上面24dp
                 child: Text(
                   widget.title,
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.articleColor),
                 ),
               ),
               SizedBox(height: 16),

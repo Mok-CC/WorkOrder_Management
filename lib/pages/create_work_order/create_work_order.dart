@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:work_order/widgets/custom_appbar.dart';
 import 'package:work_order/widgets/upload_file.dart';
 import '../../utils/app_colors.dart';
 
@@ -24,31 +25,12 @@ class _CreateWorkOrderPageState extends State<CreateWorkOrderPage> {
 
   @override
   Widget build(BuildContext context) {
+    final args =
+        ModalRoute.of(context)!.settings.arguments as Map<String, String>?;
+    final title = args?['title'] ?? 'Create Work Order';
+
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.appbarColor,
-        title: Center(
-          child: Text(
-            'Create Work Order',
-            style: TextStyle(fontSize: 18, color: Colors.white),
-          ),
-        ),
-        leading: IconButton(
-          icon: Icon(Icons.keyboard_backspace, color: Colors.white),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(
-              Icons.more_vert,
-              color: Colors.white,
-            ),
-            onPressed: () {},
-          ),
-        ],
-      ),
+      appBar: CustomAppBar(title: title),
       body: Container(
         color: AppColors.backgroundColor,
         child: SingleChildScrollView(
