@@ -27,10 +27,11 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       routes: {
-        '/': (context) => WorkDetailPage(),
+        '/': (context) => WorkOrderManagement(),
         '/operation_records': (context) => OperationRecordsPage(),
         '/create_work_order': (context) => CreateWorkOrderPage(),
         '/create_record': (context) => CreateRecordPage(),
+        'work_detail': (context) => WorkDetailPage(),
       },
     );
   }

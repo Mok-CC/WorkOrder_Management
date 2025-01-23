@@ -500,10 +500,15 @@ class _WorkDepartmentPageState extends State<WorkDepartmentPage> {
                                   ), // 文件图标
                                 ],
                               ),
-                              title: Text(
-                                'Thermo Fisher ${index + 1}',
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
+                              title: GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(context, 'work_detail');
+                                },
+                                child: Text(
+                                  'Thermo Fisher ${index + 1}',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
                               trailing: IconButton(
                                 icon: Icon(Icons.more_horiz),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:work_order/widgets/custom_appbar.dart';
 import '../utils/app_colors.dart';
 import 'timeline_detail.dart';
 import 'work_order_details.dart';
@@ -39,7 +40,9 @@ class _WorkDetailPageState extends State<WorkDetailPage>
         ),
         leading: IconButton(
           icon: Icon(Icons.keyboard_backspace, color: Colors.white),
-          onPressed: () => {},
+          onPressed: () => {
+            Navigator.pop(context),
+          },
         ),
         actions: [
           IconButton(
