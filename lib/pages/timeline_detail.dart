@@ -6,7 +6,7 @@ class TimelineWithDetails extends StatelessWidget {
   final List<Map<String, dynamic>> steps = [
     {
       "stepTitle": "2024-08-12",
-      "followUpPerson": "Mary",
+      "followUpPerson": "Mok",
       "followUpDate": "2024-06-24",
       "details": {
         "recordNumber": "RCyyyymmdd00000",
@@ -17,7 +17,7 @@ class TimelineWithDetails extends StatelessWidget {
     },
     {
       "stepTitle": "2024-08-11",
-      "followUpPerson": "Jerry",
+      "followUpPerson": "Mok",
       "followUpDate": "2024-06-24",
       "details": {
         "recordNumber": "RCyyyymmdd00001",

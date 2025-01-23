@@ -88,7 +88,9 @@ class _WorkDetailPageState extends State<WorkDetailPage>
                     spacing: 16,
                     children: [
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/operation_records');
+                        },
                         style: TextButton.styleFrom(
                           padding: EdgeInsets.symmetric(
                               vertical: 12, horizontal: 20), // 上下12，左右20
@@ -105,7 +107,9 @@ class _WorkDetailPageState extends State<WorkDetailPage>
                         ),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/create_record');
+                        },
                         style: TextButton.styleFrom(
                           padding: EdgeInsets.symmetric(
                               vertical: 12, horizontal: 20), // 上下12，左右20

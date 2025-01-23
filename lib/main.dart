@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:work_order/pages/create_record.dart';
 import 'package:work_order/pages/timeline_detail.dart';
 import 'package:work_order/pages/work_order.dart';
 
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => WorkDetailPage(),
         '/operation_records': (context) => OperationRecordsPage(),
         '/create_work_order': (context) => CreateWorkOrderPage(),
+        '/create_record': (context) => CreateRecordPage(),
       },
     );
   }
