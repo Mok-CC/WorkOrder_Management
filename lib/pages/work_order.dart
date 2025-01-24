@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:work_order/pages/work_navbar.dart';
 import 'package:work_order/pages/work_select.dart';
+import 'package:work_order/utils/app_colors.dart';
 import 'package:work_order/widgets/custom_appbar.dart';
 
 import 'work_department.dart';
@@ -73,8 +74,24 @@ class WorkOrderManagement extends StatelessWidget {
       body: Column(
         children: [
           WorkNavbar(),
-          WorkSelect(),
-          Expanded(child: WorkDepartmentPage())
+          Expanded(
+            child: Container(
+                color: AppColors.backgroundColor,
+                child: Column(children: [
+                  Container(
+                    color: Colors.white,
+                    margin: const EdgeInsets.all(16),
+                    child: WorkSelect(),
+                  ),
+                  Expanded(
+                    child: Container(
+                      color: Colors.white,
+                      margin: const EdgeInsets.all(16),
+                      child: WorkDepartmentPage(),
+                    ),
+                  ),
+                ])),
+          )
         ],
       ),
     );

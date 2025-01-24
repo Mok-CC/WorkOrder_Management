@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'work_dropdown_title.dart';
 
 class WorkSelect extends StatefulWidget {
+  const WorkSelect({super.key});
+
   @override
   _WorkSelectState createState() => _WorkSelectState();
 }
@@ -16,7 +18,7 @@ class _WorkSelectState extends State<WorkSelect> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
