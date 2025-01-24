@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class WorkNavbar extends StatelessWidget {
+  final bool isDrawerOpen;
+  final VoidCallback toggleDrawer;
+
+  const WorkNavbar(
+      {required this.isDrawerOpen, required this.toggleDrawer, super.key});
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -14,10 +20,11 @@ class WorkNavbar extends StatelessWidget {
               Container(
                 child: SvgPicture.asset(
                   'assets/icons/gsr.svg',
-                  width: 48,
-                  height: 48,
+                  width: 24,
+                  height: 24,
                 ),
               ),
+              SizedBox(width: 8),
               Text('GSR',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -39,7 +46,7 @@ class WorkNavbar extends StatelessWidget {
                 icon: Icon(Icons.menu),
                 onPressed: () => {
                   // 打开侧边栏
-                  Scaffold.of(context).openDrawer(),
+                  toggleDrawer(),
                 },
               ),
             ],
