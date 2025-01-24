@@ -40,7 +40,7 @@ class UploadFile extends StatelessWidget {
                     onTap: onUpload,
                     child: Container(
                       color: Colors.white,
-                      margin: EdgeInsets.all(8),
+                      margin: EdgeInsets.all(16),
                       padding: EdgeInsets.fromLTRB(16, 28, 16, 24),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -93,14 +93,15 @@ class UploadFile extends StatelessWidget {
                                       onDownload!(file); // 触发下载回调
                                     },
                                   ),
-                                IconButton(
-                                  icon: Icon(Icons.delete, color: Colors.red),
-                                  onPressed: () {
-                                    if (onDelete != null) {
-                                      onDelete!(file); // 触发删除回调
-                                    }
-                                  },
-                                ),
+                                if (onDelete != null)
+                                  IconButton(
+                                    icon: Icon(Icons.delete, color: Colors.red),
+                                    onPressed: () {
+                                      if (onDelete != null) {
+                                        onDelete!(file); // 触发删除回调
+                                      }
+                                    },
+                                  ),
                               ],
                             ),
                           ),

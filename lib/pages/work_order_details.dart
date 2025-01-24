@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:work_order/widgets/upload_file.dart';
 import '../utils/app_colors.dart';
 
 class WorkOrderDetails extends StatefulWidget {
@@ -24,19 +25,29 @@ class WorkOrderDetails extends StatefulWidget {
 }
 
 class _WorkOrderDetailsState extends State<WorkOrderDetails> {
+  final List<String> _uploadedFiles = [
+    'file_1.pdf',
+    'file_2.pdf',
+    'file_3.pdf'
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
           color: AppColors.backgroundColor,
         ),
-        padding: EdgeInsets.all(16), // 添加内边距
+        // 添加内边距
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                color: Colors.white,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(6)),
+                ),
+                margin: EdgeInsets.all(16),
                 padding: EdgeInsets.all(16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -64,43 +75,28 @@ class _WorkOrderDetailsState extends State<WorkOrderDetails> {
                       label: 'Description:',
                       content: widget.description,
                     ),
-                    TextField(
-                      maxLines: 6,
-                      readOnly: true,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                      ),
-                      controller: TextEditingController(
-                          text:
-                              'Employee A submits a resignation application, completes work handover, returns company assets, and finalizes exit procedures. After approval from the supervisor, HR issues the resignation certificate.'),
-                    ),
+                    // TextField(
+                    //   maxLines: 6,
+                    //   readOnly: true,
+                    //   decoration: InputDecoration(
+                    //     border: OutlineInputBorder(),
+                    //   ),
+                    //   controller: TextEditingController(
+                    //       text:
+                    //           'Employee A submits a resignation application, completes work handover, returns company assets, and finalizes exit procedures. After approval from the supervisor, HR issues the resignation certificate.'),
+                    // ),
                   ],
                 ),
               ),
 
               SizedBox(height: 20), // 添加间距
               // 展示 Attachments
-              Container(
-                width: double.infinity,
-                color: Colors.white,
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Attachments:',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(height: 10),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: widget.attachments
-                          .map((attachment) => Text(attachment))
-                          .toList(),
-                    ),
-                  ],
-                ),
-              )
+              UploadFile(
+                uploadedFiles: _uploadedFiles,
+                onDownload: (file) {
+                  print('Downloading $file');
+                },
+              ),
             ],
           ),
         ));

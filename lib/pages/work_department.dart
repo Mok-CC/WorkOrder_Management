@@ -502,7 +502,10 @@ class _WorkDepartmentPageState extends State<WorkDepartmentPage> {
                               ),
                               title: GestureDetector(
                                 onTap: () {
-                                  Navigator.pushNamed(context, 'work_detail');
+                                  Navigator.pushNamed(context, 'work_detail',
+                                      arguments: {
+                                        "title": 'Thermo Fisher ${index + 1}',
+                                      });
                                 },
                                 child: Text(
                                   'Thermo Fisher ${index + 1}',

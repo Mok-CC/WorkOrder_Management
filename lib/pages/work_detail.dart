@@ -29,12 +29,17 @@ class _WorkDetailPageState extends State<WorkDetailPage>
 
   @override
   Widget build(BuildContext context) {
+    final routeArgs = ModalRoute.of(context)?.settings.arguments;
+    final Map<String, dynamic>? args =
+        (routeArgs is Map<String, dynamic>) ? routeArgs : null;
+    final title = args?['title'] ?? 'Work Order Detail';
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFF3875c6),
         title: Center(
           child: Text(
-            'Work Order Management',
+            title,
             style: TextStyle(fontSize: 18, color: Colors.white),
           ),
         ),
