@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class WorkNavbar extends StatelessWidget {
   @override
@@ -7,17 +8,21 @@ class WorkNavbar extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Container(
-          padding: EdgeInsets.only(left: 0),
+          padding: EdgeInsets.only(left: 23),
           child: Row(
             children: [
-              IconButton(
-                icon: Icon(Icons.menu),
-                onPressed: () => {
-                  // 打开侧边栏
-                  Scaffold.of(context).openDrawer(),
-                },
+              Container(
+                child: SvgPicture.asset(
+                  'assets/icons/gsr.svg',
+                  width: 48,
+                  height: 48,
+                ),
               ),
-              Icon(Icons.abc)
+              Text('GSR',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ))
             ],
           ),
         ),
@@ -30,7 +35,13 @@ class WorkNavbar extends StatelessWidget {
                 child: Icon(Icons.person),
               ),
               SizedBox(width: 12),
-              Text('Robert fox')
+              IconButton(
+                icon: Icon(Icons.menu),
+                onPressed: () => {
+                  // 打开侧边栏
+                  Scaffold.of(context).openDrawer(),
+                },
+              ),
             ],
           ),
         )

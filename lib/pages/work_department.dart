@@ -369,7 +369,7 @@ class _WorkDepartmentPageState extends State<WorkDepartmentPage> {
       body: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-            color: Colors.blue,
+            color: Colors.white,
             borderRadius: BorderRadius.all(Radius.circular(16))),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
