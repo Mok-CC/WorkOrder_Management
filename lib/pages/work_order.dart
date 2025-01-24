@@ -79,13 +79,14 @@ class WorkOrderManagement extends StatelessWidget {
                 color: AppColors.backgroundColor,
                 child: Column(children: [
                   Container(
-                    color: Colors.white,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(6))),
                     margin: const EdgeInsets.all(16),
                     child: WorkSelect(),
                   ),
                   Expanded(
                     child: Container(
-                      color: Colors.white,
                       margin: const EdgeInsets.all(16),
                       child: WorkDepartmentPage(),
                     ),

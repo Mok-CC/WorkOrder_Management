@@ -366,202 +366,200 @@ class _WorkDepartmentPageState extends State<WorkDepartmentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Container(
-            color: Colors.white,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      body: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+            color: Colors.blue,
+            borderRadius: BorderRadius.all(Radius.circular(16))),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // 路由导航面包屑
-                    Breadcrumb(paths: [
-                      'Root directory',
-                      'Sales and marketing department'
-                    ]),
-                    // 创建工单按钮
-                    PopupMenuButton<String>(
-                      onSelected: (String result) {
-                        // 处理点击的菜单项
-                        print('Selected: $result');
-                      },
-                      offset: Offset(0, 40),
-                      shape: RoundedRectangleBorder(),
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.add_circle_outline,
-                          size: 24,
-                          color: AppColors.primaryColor,
-                        ),
-                        onPressed:
-                            null, // 不需要在这里设置 onPressed，PopupMenuButton 会自动处理
+                // 路由导航面包屑
+                Breadcrumb(paths: [
+                  'Root directory',
+                  'Sales and marketing department'
+                ]),
+                // 创建工单按钮
+                PopupMenuButton<String>(
+                  onSelected: (String result) {
+                    // 处理点击的菜单项
+                    print('Selected: $result');
+                  },
+                  offset: Offset(0, 40),
+                  shape: RoundedRectangleBorder(),
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.add_circle_outline,
+                      size: 24,
+                      color: AppColors.primaryColor,
+                    ),
+                    onPressed: null, // 不需要在这里设置 onPressed，PopupMenuButton 会自动处理
+                  ),
+                  itemBuilder: (BuildContext context) =>
+                      <PopupMenuEntry<String>>[
+                    PopupMenuItem<String>(
+                      value: 'Operation records',
+                      child: Text(
+                        'Operation records',
+                        style: TextStyle(
+                            fontSize: 16, color: AppColors.articleColor),
                       ),
-                      itemBuilder: (BuildContext context) =>
-                          <PopupMenuEntry<String>>[
-                        PopupMenuItem<String>(
-                          value: 'Operation records',
-                          child: Text(
-                            'Operation records',
-                            style: TextStyle(
-                                fontSize: 16, color: AppColors.articleColor),
-                          ),
-                          // 路由跳转
-                          onTap: () {
-                            Navigator.pushNamed(context, '/operation_records',
-                                arguments: {
-                                  'title': 'Operation Records',
-                                });
-                          },
-                        ),
-                        PopupMenuItem<String>(
-                          value: 'Create folder',
-                          child: Text(
-                            'Create folder',
-                            style: TextStyle(
-                                fontSize: 16, color: AppColors.articleColor),
-                          ),
-                          onTap: () {
-                            _showCreateFolderDialog(context);
-                          },
-                        ),
-                        PopupMenuItem<String>(
-                          value: 'Create work order',
-                          child: Text(
-                            'Create work order',
-                            style: TextStyle(
-                                fontSize: 16, color: AppColors.articleColor),
-                          ),
-                          onTap: () {
-                            Navigator.pushNamed(context, '/create_work_order',
-                                arguments: {'title': 'Create Work Order'});
-                          },
-                        ),
-                      ],
+                      // 路由跳转
+                      onTap: () {
+                        Navigator.pushNamed(context, '/operation_records',
+                            arguments: {
+                              'title': 'Operation Records',
+                            });
+                      },
+                    ),
+                    PopupMenuItem<String>(
+                      value: 'Create folder',
+                      child: Text(
+                        'Create folder',
+                        style: TextStyle(
+                            fontSize: 16, color: AppColors.articleColor),
+                      ),
+                      onTap: () {
+                        _showCreateFolderDialog(context);
+                      },
+                    ),
+                    PopupMenuItem<String>(
+                      value: 'Create work order',
+                      child: Text(
+                        'Create work order',
+                        style: TextStyle(
+                            fontSize: 16, color: AppColors.articleColor),
+                      ),
+                      onTap: () {
+                        Navigator.pushNamed(context, '/create_work_order',
+                            arguments: {'title': 'Create Work Order'});
+                      },
                     ),
                   ],
                 ),
-                SizedBox(height: 16),
-
-                // 工单文件夹
-                ListTile(
-                  leading: Padding(
-                    padding: EdgeInsets.only(left: 48),
-                    child: Icon(
-                      Icons.folder,
-                      size: 32,
-                      color: Colors.cyan,
-                    ),
-                  ),
-                  // 图标
-                  title: Text(
-                    'File test',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  trailing: IconButton(
-                    icon: Icon(Icons.more_horiz),
-                    onPressed: () {
-                      // 处理更多操作
-                      _showBottomSheet('File test', true, '2021-10-10 10:10:10',
-                          'WO-0001', 'John Doe', () {
-                        // 编辑工单
-                      }, () {});
-                    },
-                  ),
-                ),
-                Divider(height: 1, thickness: 1, color: Colors.grey), // 分隔线
-
-                // 工单列表
-                Expanded(
-                    child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: ListView.builder(
-                    itemCount: 10,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          Card(
-                            color: Colors.white,
-                            elevation: 0, // 去掉阴影
-                            margin: EdgeInsets.zero, // 去掉外边距
-                            child: ListTile(
-                              leading: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Checkbox(
-                                      value: _checkboxValues[index],
-                                      onChanged: (value) {
-                                        _onCheckboxChanged(index, value);
-                                      }),
-                                  Icon(
-                                    Icons.insert_drive_file,
-                                    color: Colors.blue,
-                                  ), // 文件图标
-                                ],
-                              ),
-                              title: GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamed(context, 'work_detail',
-                                      arguments: {
-                                        "title": 'Thermo Fisher ${index + 1}',
-                                      });
-                                },
-                                child: Text(
-                                  'Thermo Fisher ${index + 1}',
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                              trailing: IconButton(
-                                icon: Icon(Icons.more_horiz),
-                                onPressed: () {
-                                  // 处理更多操作
-                                  _showBottomSheet(
-                                    'Thermo Fisher ${index + 1}',
-                                    false,
-                                    'creationTime',
-                                    'workOrderNumber',
-                                    'Mok1',
-                                    () {
-                                      // 编辑工单
-                                      Navigator.pushNamed(
-                                          context, '/create_work_order',
-                                          arguments: {
-                                            'title': 'Create Work Order',
-                                            'isEdit': true,
-                                            'workOrderData': {
-                                              'name':
-                                                  'Thermo Fisher ${index + 1}',
-                                              'creationTime': 'creationTime',
-                                              'workOrderNumber':
-                                                  'workOrderNumber',
-                                              'handler': 'Mok1',
-                                            }
-                                          });
-                                    },
-                                    () {
-                                      // 删除工单
-                                    },
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-                          // 添加分隔线
-                          Divider(
-                            height: 1, // 高度，影响分隔线与内容的间距
-                            thickness: 1, // 厚度
-                            color: Colors.grey, // 颜色
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                )),
               ],
             ),
-          )),
+            SizedBox(height: 16),
+
+            // 工单文件夹
+            ListTile(
+              leading: Padding(
+                padding: EdgeInsets.only(left: 48),
+                child: Icon(
+                  Icons.folder,
+                  size: 32,
+                  color: Colors.cyan,
+                ),
+              ),
+              // 图标
+              title: Text(
+                'File test',
+                style: TextStyle(fontSize: 18),
+              ),
+              trailing: IconButton(
+                icon: Icon(Icons.more_horiz),
+                onPressed: () {
+                  // 处理更多操作
+                  _showBottomSheet('File test', true, '2021-10-10 10:10:10',
+                      'WO-0001', 'John Doe', () {
+                    // 编辑工单
+                  }, () {});
+                },
+              ),
+            ),
+            Divider(height: 1, thickness: 1, color: Colors.grey), // 分隔线
+
+            // 工单列表
+            Expanded(
+                child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: ListView.builder(
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
+                      Card(
+                        color: Colors.white,
+                        elevation: 0, // 去掉阴影
+                        margin: EdgeInsets.zero, // 去掉外边距
+                        child: ListTile(
+                          leading: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Checkbox(
+                                  value: _checkboxValues[index],
+                                  onChanged: (value) {
+                                    _onCheckboxChanged(index, value);
+                                  }),
+                              Icon(
+                                Icons.insert_drive_file,
+                                color: Colors.blue,
+                              ), // 文件图标
+                            ],
+                          ),
+                          title: GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(context, 'work_detail',
+                                  arguments: {
+                                    "title": 'Thermo Fisher ${index + 1}',
+                                  });
+                            },
+                            child: Text(
+                              'Thermo Fisher ${index + 1}',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          trailing: IconButton(
+                            icon: Icon(Icons.more_horiz),
+                            onPressed: () {
+                              // 处理更多操作
+                              _showBottomSheet(
+                                'Thermo Fisher ${index + 1}',
+                                false,
+                                'creationTime',
+                                'workOrderNumber',
+                                'Mok1',
+                                () {
+                                  // 编辑工单
+                                  Navigator.pushNamed(
+                                      context, '/create_work_order',
+                                      arguments: {
+                                        'title': 'Create Work Order',
+                                        'isEdit': true,
+                                        'workOrderData': {
+                                          'name': 'Thermo Fisher ${index + 1}',
+                                          'creationTime': 'creationTime',
+                                          'workOrderNumber': 'workOrderNumber',
+                                          'handler': 'Mok1',
+                                        }
+                                      });
+                                },
+                                () {
+                                  // 删除工单
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                      // 添加分隔线
+                      Divider(
+                        height: 1, // 高度，影响分隔线与内容的间距
+                        thickness: 1, // 厚度
+                        color: Colors.grey, // 颜色
+                      ),
+                    ],
+                  );
+                },
+              ),
+            )),
+          ],
+        ),
+      ),
       // 底部弹框
       bottomSheet: _isAnyChecked
           ? Container(
