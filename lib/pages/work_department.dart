@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:work_order/pages/create_work_order/create_work_order.dart';
 import 'package:work_order/utils/app_colors.dart';
 import 'package:work_order/widgets/bottomsheet.dart';
 import 'package:work_order/widgets/breadcrumb.dart';
-import 'package:shadcn_ui/shadcn_ui.dart';
 
 class WorkDepartmentPage extends StatefulWidget {
   const WorkDepartmentPage({super.key});
@@ -13,7 +11,7 @@ class WorkDepartmentPage extends StatefulWidget {
 }
 
 class _WorkDepartmentPageState extends State<WorkDepartmentPage> {
-  final List<bool> _checkboxValues = List.generate(10, (index) => false);
+  final List<bool> _checkboxValues = List.generate(100, (index) => false);
   bool _isAnyChecked = false; // 是否有选中项
   int _selectedCount = 0; // 选中项数量
 
@@ -477,7 +475,8 @@ class _WorkDepartmentPageState extends State<WorkDepartmentPage> {
                 child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: ListView.builder(
-                itemCount: 10,
+                cacheExtent: 1080,
+                itemCount: 99,
                 itemBuilder: (context, index) {
                   return Column(
                     children: [
@@ -494,7 +493,7 @@ class _WorkDepartmentPageState extends State<WorkDepartmentPage> {
                                   onChanged: (value) {
                                     _onCheckboxChanged(index, value);
                                   }),
-                              Icon(
+                              const Icon(
                                 Icons.insert_drive_file,
                                 color: Colors.blue,
                               ), // 文件图标
@@ -514,7 +513,7 @@ class _WorkDepartmentPageState extends State<WorkDepartmentPage> {
                             ),
                           ),
                           trailing: IconButton(
-                            icon: Icon(Icons.more_horiz),
+                            icon: const Icon(Icons.more_horiz),
                             onPressed: () {
                               // 处理更多操作
                               _showBottomSheet(
